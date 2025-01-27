@@ -1,0 +1,25 @@
+{
+  "name": "s63_personalbudgettracker",
+  "version": "1.0.0",
+  "description": "Welcome to the *Personal Budget Tracker* project! This application helps users manage their finances by tracking income and expenses, setting budgets, and analyzing financial trends. Built using the *MERN (MongoDB, Express, React, Node.js) stack*, it offers a seamless user experience with powerful features.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kalviumcommunity/S63_PersonalBudgetTracker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kalviumcommunity/S63_PersonalBudgetTracker/issues"
+  },
+  "homepage": "https://github.com/kalviumcommunity/S63_PersonalBudgetTracker#readme",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.5",
+    "nodemon": "^3.1.9"
+  }
+}
