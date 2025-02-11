@@ -1,0 +1,22 @@
+meta {
+  name: POSTt
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:5000/api/transactions
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "amount": 1500,
+    "category": "Groceries",
+    "description": "Weekly grocery shopping",
+    "date": "2025-02-10",
+    "type": "expense"
+  }
+  
+}
