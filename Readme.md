@@ -89,4 +89,4 @@ Thank you for using *Personal Budget Tracker!* 🚀
 
 ## Frontend Deployment Link:-
 -here is the link of frontend - https://s63-personalbudgettrackers.pages.dev/
-Thank you for using *Personal Budget Tracker!* 🚀
+Thank you for using *Personal Budget Tracker!* 🚀.
