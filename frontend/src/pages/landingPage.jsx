@@ -4,7 +4,7 @@ const landingPage = () => {
   return (
     <div className="landing-container">
       <h1>Welcome to the Excuse Maker 3000 🙇‍♂</h1>
-      <p>Introducing the Excuse Maker 3000™—the revolutionary AI-powered tool that generates top-tier excuses faster than you can say, “It’s not my fault!” Whether you're dodging deadlines, bailing on plans, or just need a creative way to explain why your code still isn’t working, this state-of-the-art system has you covered.
+      <p>Introducing the Excuse Maker 3000™—the revolutionary AI-powered tool that generates top-tier excuses faster than you can say, “It’s not my fault!” Whether youre dodging deadlines, bailing on plans, or just need a creative way to explain why your code still isn’t working, this state-of-the-art system has you covered.
 
 Features include:
 ✅ AI-Generated Excuses – Because thinking is overrated.
