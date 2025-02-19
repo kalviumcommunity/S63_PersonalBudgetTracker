@@ -51,7 +51,7 @@ const TransactionsGrid = () => {
   );
 };
 
-// Inline Styles (CSS-in-JS)
+// Inline Styles for the component
 const styles = {
   pageContainer: {
     display: 'flex',
