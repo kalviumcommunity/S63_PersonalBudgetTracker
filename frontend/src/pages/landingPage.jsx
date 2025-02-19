@@ -1,21 +1,60 @@
-import React from "react";
+import React from 'react';
+import Navbar from '../components/Navbar'; // Adjust path if necessary
 
-const landingPage = () => {
+const LandingPage = () => {
   return (
-    <div className="landing-container">
-      <h1>Welcome to the Excuse Maker 3000 🙇‍♂</h1>
-      <p>Introducing the Excuse Maker 3000™—the revolutionary AI-powered tool that generates top-tier excuses faster than you can say, “It’s not my fault!” Whether youre dodging deadlines, bailing on plans, or just need a creative way to explain why your code still isn’t working, this state-of-the-art system has you covered.
-
-Features include:
-✅ AI-Generated Excuses – Because thinking is overrated.
-✅ Plausibility Slider – Choose between Mildly Believable and Complete Nonsense.
-✅ Emergency Mode – Instant excuses for last-minute disasters (like forgetting your best friend birthday).
-✅ Corporate Edition – Optimized for avoiding meetings and shifting blame professionally.
-
-Say goodbye to accountability and hello to smooth-talking your way out of anything! 🚀</p>
-      <button>Create your own!</button>
+    <div style={styles.container}>
+      <Navbar />
+      <div style={styles.content}>
+        <header style={styles.header}>
+          <h1>Personal Budget Tracker</h1>
+          <p>Manage your finances effortlessly and stay on top of your budget!</p>
+          <button style={styles.button}>Get Started</button>
+        </header>
+      </div>
     </div>
   );
 };
 
-export default landingPage;
+const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    backgroundColor: '#f4f4f4',
+    margin: 0,
+    padding: 0,
+    minHeight: '100vh',
+    width: '100vw',
+  },
+  content: {
+    marginTop: '40px',                                   
+    width: '100%',
+    maxWidth: '1000px',
+    padding: '20px',
+    boxSizing: 'border-box',
+    textAlign: 'center',
+    backgroundColor: '#ffffff',
+    borderRadius: '10px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    flex: 1,
+  },
+  header: {
+    backgroundColor: '#007bff',
+    color: 'white',
+    padding: '10px 10px',
+    borderRadius: '10px',
+  },
+  button: {
+    backgroundColor: '#ffcc00',
+    color: '#333',
+    border: 'none',
+    padding: '10px 20px',
+    fontSize: '16px',
+    cursor: 'pointer',
+    borderRadius: '5px',
+    marginTop: '10px',
+  },
+};
+
+export default LandingPage;
