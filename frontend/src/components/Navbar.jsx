@@ -27,7 +27,7 @@ const Navbar = () => {
       {/* Navigation Links */}
       <ul className={`navLinks ${isOpen ? "open" : ""}`}>
         <li className="navItem">
-          <a href="/" className="navLink">
+          <a href="/Home" className="navLink">
             Home
           </a>
         </li>
