@@ -32,4 +32,54 @@ const getTransactions = async (req, res) => {
   }
 };
 
-module.exports = { addTransaction, getTransactions };
+// Update a transaction
+const updateTransaction = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { transactionName, category, transactionType, date, amount } =
+      req.body;
+
+    // Check if transaction exists
+    const existingTransaction = await Transaction.findById(id);
+    if (!existingTransaction) {
+      return res.status(404).json({ message: "Transaction not found." });
+    }
+
+    // Update transaction data
+    existingTransaction.transactionName = transactionName;
+    existingTransaction.category = category;
+    existingTransaction.transactionType = transactionType;
+    existingTransaction.date = date;
+    existingTransaction.amount = amount;
+
+    await existingTransaction.save();
+    res.status(200).json({ message: "Transaction updated successfully!" });
+  } catch (error) {
+    res.status(500).json({ message: "Error updating transaction.", error });
+  }
+};
+
+// Delete a transaction
+const deleteTransaction = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Check if transaction exists
+    const existingTransaction = await Transaction.findById(id);
+    if (!existingTransaction) {
+      return res.status(404).json({ message: "Transaction not found." });
+    }
+
+    await Transaction.findByIdAndDelete(id);
+    res.status(200).json({ message: "Transaction deleted successfully!" });
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting transaction.", error });
+  }
+};
+
+module.exports = {
+  addTransaction,
+  getTransactions,
+  updateTransaction,
+  deleteTransaction,
+};
