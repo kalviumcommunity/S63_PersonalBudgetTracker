@@ -3,7 +3,6 @@ import "./Homepage.css";
 import Navbar from "../components/Navbar";
 
 const Homepage = () => {
-  // State for form and transactions
   const [formData, setFormData] = useState({
     transactionName: "",
     category: "",
@@ -13,6 +12,8 @@ const Homepage = () => {
   });
 
   const [transactions, setTransactions] = useState([]);
+  const [editMode, setEditMode] = useState(false);
+  const [currentId, setCurrentId] = useState(null);
 
   // Handle input changes
   const handleChange = (e) => {
@@ -20,7 +21,7 @@ const Homepage = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  // Handle form submission
+  // Handle form submission (Add or Update Transaction)
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -33,8 +34,14 @@ const Homepage = () => {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/transactions/add", {
-        method: "POST",
+      const url = editMode
+        ? `http://localhost:5000/api/transactions/update/${currentId}`
+        : "http://localhost:5000/api/transactions/add";
+
+      const method = editMode ? "PUT" : "POST";
+
+      const res = await fetch(url, {
+        method,
         headers: {
           "Content-Type": "application/json",
         },
@@ -42,15 +49,9 @@ const Homepage = () => {
       });
 
       if (res.ok) {
-        alert("✅ Transaction saved successfully!");
-        fetchTransactions(); // Reload transactions after adding
-        setFormData({
-          transactionName: "",
-          category: "",
-          transactionType: "",
-          date: "",
-          amount: "",
-        });
+        alert(editMode ? "✅ Transaction updated!" : "✅ Transaction added!");
+        fetchTransactions();
+        resetForm();
       } else {
         alert("❌ Error saving transaction.");
       }
@@ -71,6 +72,54 @@ const Homepage = () => {
     }
   };
 
+  // Delete a transaction
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you want to delete this transaction?")) {
+      try {
+        const res = await fetch(
+          `http://localhost:5000/api/transactions/delete/${id}`,
+          { method: "DELETE" }
+        );
+
+        if (res.ok) {
+          alert("🗑️ Transaction deleted successfully!");
+          fetchTransactions();
+        } else {
+          alert("❌ Error deleting transaction.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("⚠️ Failed to connect to the server.");
+      }
+    }
+  };
+
+  // Edit a transaction
+  const handleEdit = (transaction) => {
+    setFormData({
+      transactionName: transaction.transactionName,
+      category: transaction.category,
+      transactionType: transaction.transactionType,
+      date: new Date(transaction.date).toISOString().split("T")[0],
+      amount: transaction.amount,
+    });
+    setEditMode(true);
+    setCurrentId(transaction._id);
+  };
+
+  // Reset form after adding or updating
+  const resetForm = () => {
+    setFormData({
+      transactionName: "",
+      category: "",
+      transactionType: "",
+      date: "",
+      amount: "",
+    });
+    setEditMode(false);
+    setCurrentId(null);
+  };
+
   // Format currency to INR
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat("en-IN", {
@@ -80,14 +129,12 @@ const Homepage = () => {
     }).format(amount);
   };
 
-  // Fetch transactions on component load
   useEffect(() => {
     fetchTransactions();
   }, []);
 
   return (
     <>
-      {/* Navbar at the top */}
       <Navbar />
       <div className="container">
         <h2>Personal Budget Tracker</h2>
@@ -138,7 +185,12 @@ const Homepage = () => {
             placeholder="Amount"
             required
           />
-          <button type="submit">Save</button>
+          <button type="submit">{editMode ? "Update" : "Save"}</button>
+          {editMode && (
+            <button type="button" onClick={resetForm} className="cancel-btn">
+              Cancel
+            </button>
+          )}
         </form>
 
         {/* Transaction List */}
@@ -152,6 +204,7 @@ const Homepage = () => {
                   <th>Category</th>
                   <th>Type</th>
                   <th>Amount</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -162,6 +215,20 @@ const Homepage = () => {
                     <td>{transaction.category}</td>
                     <td>{transaction.transactionType}</td>
                     <td>{formatCurrency(transaction.amount)}</td>
+                    <td>
+                      <button
+                        onClick={() => handleEdit(transaction)}
+                        className="edit-btn"
+                      >
+                        ✏️ Edit
+                      </button>
+                      <button
+                        onClick={() => handleDelete(transaction._id)}
+                        className="delete-btn"
+                      >
+                        🗑️ Delete
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
