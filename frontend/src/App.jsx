@@ -1,28 +1,19 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import LandingPage from "./pages/landingPage";
-import TransactionCard from "./components/TransactionCard"; // Import the TransactionCard component
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import LandingPage from './pages/landingPage';
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
 
-function App() {
-  // Dummy transaction data
-  const dummyTransaction = {
-    id: 1,
-    category: "Groceries",
-    amount: 45.99,
-    date: "2025-02-19",
-    type: "expense",
-  };
-
+const App = () => {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route
-          path="/transaction"
-          element={<TransactionCard transaction={dummyTransaction} />}
-        />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
       </Routes>
     </Router>
   );
-}
+};
 
 export default App;

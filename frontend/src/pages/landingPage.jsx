@@ -1,60 +1,41 @@
 import React from 'react';
-import Navbar from '../components/Navbar'; // Adjust path if necessary
+import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar';
+import './LandingPage.css';
+import HeroImage from '/images/image.png'; // Make sure the path is correct
 
 const LandingPage = () => {
+  const navigate = useNavigate();
+
+  const handleGetStarted = () => {
+    navigate('/login');
+  };
+
   return (
-    <div style={styles.container}>
+    <div className="landing-container">
       <Navbar />
-      <div style={styles.content}>
-        <header style={styles.header}>
-          <h1>Personal Budget Tracker</h1>
-          <p>Manage your finances effortlessly and stay on top of your budget!</p>
-          <button style={styles.button}>Get Started</button>
-        </header>
-      </div>
+
+      {/* Hero Section */}
+      <section className="hero-section">
+        <div className="hero-content">
+          <h1>Take Control of Your Finances<br />with Our Personal Budget Tracker</h1>
+          <p>
+            Transform your financial management with our intuitive budgeting tool designed to help you monitor
+            your expenses, set savings goals, and achieve financial freedom. Easily visualize your spending patterns
+            and make informed decisions that align with your financial objectives.
+          </p>
+          <button className="hero-btn" onClick={handleGetStarted}>
+            Get Started Today
+          </button>
+        </div>
+
+        {/* Hero Image */}
+        <div className="hero-image">
+          <img src={HeroImage} alt="Personal Budget Tracker" />
+        </div>
+      </section>
     </div>
   );
-};
-
-const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    backgroundColor: '#f4f4f4',
-    margin: 0,
-    padding: 0,
-    minHeight: '100vh',
-    width: '100vw',
-  },
-  content: {
-    marginTop: '40px',                                   
-    width: '100%',
-    maxWidth: '1000px',
-    padding: '20px',
-    boxSizing: 'border-box',
-    textAlign: 'center',
-    backgroundColor: '#ffffff',
-    borderRadius: '10px',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    flex: 1,
-  },
-  header: {
-    backgroundColor: '#007bff',
-    color: 'white',
-    padding: '10px 10px',
-    borderRadius: '10px',
-  },
-  button: {
-    backgroundColor: '#ffcc00',
-    color: '#333',
-    border: 'none',
-    padding: '10px 20px',
-    fontSize: '16px',
-    cursor: 'pointer',
-    borderRadius: '5px',
-    marginTop: '10px',
-  },
 };
 
 export default LandingPage;
