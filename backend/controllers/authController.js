@@ -14,14 +14,14 @@ exports.registerUser = async (req, res) => {
     }
 
     // Hash password before saving
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    //const salt = await bcrypt.genSalt(10);
+    //const hashedPassword = await bcrypt.hash(password, salt);
 
     // Create new user
     const user = await User.create({
       name,
       email,
-      password: hashedPassword,
+      password,
     });
 
     if (user) {
@@ -47,10 +47,23 @@ exports.loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
+    // Find the user by email
     const user = await User.findOne({ email });
+    console.log('User found:', user);
 
-    // Check if user exists and password is valid
-    if (user && (await bcrypt.compare(password, user.password))) {
+    // If user not found
+    if (!user) {
+      console.log('User not found!');
+      return res.status(401).json({ success: false, message: 'Invalid email or password!' });
+    }
+
+    // Compare the entered password with the hashed password
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    console.log('Password Match:', isMatch);
+
+    // Check if password matches
+    if (isMatch) {
       res.status(200).json({
         success: true,
         message: 'Login successful!',
@@ -61,9 +74,11 @@ exports.loginUser = async (req, res) => {
         },
       });
     } else {
+      console.log('Password mismatch!');
       res.status(401).json({ success: false, message: 'Invalid email or password!' });
     }
   } catch (error) {
+    console.error('Error during login:', error);
     res.status(500).json({ success: false, message: 'Error in login. Please try again!' });
   }
 };
